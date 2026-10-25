@@ -31,7 +31,7 @@ export const site = {
     email: null,
     phone: null,
     address: null,
-    whatsapp: null,
+    whatsapp: '2347063401860',
   },
 
   categories: ['Audio', 'Power', 'Wearables', 'Accessories'],
