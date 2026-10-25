@@ -95,6 +95,17 @@ key only. Server side webhook verification is described in
 docs/backend-spec.md and must be in place before real payments are
 taken. No bank account details are stored in this project.
 
+## Backend
+
+The storefront works on its own with browser storage. A backend of
+Vercel serverless API routes plus Postgres lives in `api/` and `lib/`,
+covering real orders, Flutterwave webhook verification, order and
+abandoned cart emails, operator chat, and WhatsApp intake. See
+`api/README.md` for setup, environment variables, and deployment
+notes. The storefront connects to it through `src/config/api.js`,
+which is null by default, so the site behaves exactly as before until
+a backend URL is set.
+
 ## Contact details
 
 No real phone number, email address, or physical address is stored in
