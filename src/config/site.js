@@ -24,11 +24,14 @@ export const site = {
   },
 
   /* Contact details are not set yet. Pages that would need real contact
-     details say so plainly instead of showing invented details. */
+     details say so plainly instead of showing invented details. The
+     WhatsApp number stays null until the real number is confirmed.
+     While it is null, the floating WhatsApp button is hidden. */
   contact: {
     email: null,
     phone: null,
     address: null,
+    whatsapp: null,
   },
 
   categories: ['Audio', 'Power', 'Wearables', 'Accessories'],

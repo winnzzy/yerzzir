@@ -78,6 +78,13 @@ export default function OrderSuccess({ params }) {
             <h2 className="section-title block-heading">Payment</h2>
             <p>
               {payment ? payment.label : order.paymentMethod}
+              {order.paymentMethod === 'flutterwave' && order.paymentStatus === 'paid' && (
+                <>
+                  <br />
+                  Payment received. Flutterwave emails you a payment receipt
+                  after a successful payment.
+                </>
+              )}
               {order.paymentMethod === 'transfer' && (
                 <>
                   <br />

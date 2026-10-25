@@ -1,4 +1,5 @@
 import { site } from '../config/site.js'
+import Logo from './Logo.jsx'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -7,10 +8,11 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <p className="footer-heading">{site.brandName}</p>
+            <p className="footer-brand"><Logo /></p>
             <p className="footer-note">
-              {site.tagline} Orders are placed on this site, paid with bank
-              transfer or on delivery, and shipped to addresses across Nigeria.
+              {site.tagline} Orders are placed on this site, paid securely
+              at checkout, by bank transfer, or on delivery, and shipped to
+              addresses across Nigeria.
             </p>
             <p className="footer-note">Contact details coming soon.</p>
           </div>

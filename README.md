@@ -68,27 +68,36 @@ rule is implemented in `src/lib/shop.js`:
 
 Change the numbers in `site.js` to change the rule everywhere.
 
-## Connect a real payment provider
+## Connect Flutterwave
 
-Card payments are disabled on purpose. No provider is connected, and no
-keys exist in this project. The payment seam is one file:
-`src/config/payments.js`.
+The payment provider is Flutterwave. The payment seam is one file:
+`src/config/payments.js`. Right now the public key is empty, so the
+Flutterwave option renders disabled with an honest note, and bank
+transfer plus pay on delivery work as before.
 
-To connect a provider later:
+To activate Flutterwave Checkout:
 
-1. Open a merchant account with Paystack or Flutterwave.
-2. In `src/config/payments.js`, set `provider` to `paystack` or
-   `flutterwave`.
-3. Paste the provider dashboard public key into `publicKey`.
-4. Set `cardPaymentsEnabled` to `true`.
+1. Open a merchant account with Flutterwave and copy the public key
+   from the Flutterwave dashboard.
+2. In `src/config/payments.js`, paste the public key into `publicKey`.
+3. Set `cardPaymentsEnabled` to `true`.
 
-Never put a secret key in this file or in any front end code. The
-checkout card option stays disabled until those three values are set.
-Bank transfer and pay on delivery work without a provider. Bank transfer
-instructions tell the customer to use the order number as the reference.
-No bank account details are stored in this project. Add the real
-account details to the transfer instructions only when they are
-confirmed.
+That is all the storefront needs. When active, checkout loads the
+Flutterwave script and opens the modal with the order number as
+tx_ref, the total amount, currency NGN, and the customer name, email,
+and phone from the checkout form. Payment options inside Flutterwave
+Checkout are card, bank transfer, and USSD. On a successful payment
+the order is marked paid and the success page notes that Flutterwave
+emails the customer a payment receipt. Closing the modal without
+paying places no order.
+
+Never put a secret key in this file or in any front end code. Public
+key only. Server side webhook verification is described in
+docs/backend-spec.md and must be in place before real payments are
+taken. Bank transfer instructions tell the customer to use the order
+number as the reference. No bank account details are stored in this
+project. Add the real account details to the transfer instructions
+only when they are confirmed.
 
 ## Contact details
 

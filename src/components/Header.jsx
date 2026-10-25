@@ -1,5 +1,5 @@
-import { site } from '../config/site.js'
 import { useStore } from '../store/StoreContext.jsx'
+import Logo from './Logo.jsx'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -22,8 +22,7 @@ export default function Header({ currentPath }) {
     <header className="header">
       <div className="container header-inner">
         <a className="brand" href="#/">
-          <span className="brand-mark" aria-hidden="true">T</span>
-          {site.brandName}
+          <Logo />
         </a>
         <nav className="nav" aria-label="Main navigation">
           {links.map((link) => (

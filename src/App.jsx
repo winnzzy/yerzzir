@@ -3,6 +3,8 @@ import { StoreProvider } from './store/StoreContext.jsx'
 import { parseHash, matchRoute } from './lib/router.js'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
+import WhatsAppButton from './components/WhatsAppButton.jsx'
+import ChatWidget from './components/ChatWidget.jsx'
 import Home from './pages/Home.jsx'
 import Shop from './pages/Shop.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
@@ -68,6 +70,8 @@ export default function App() {
         <Router route={route} />
       </main>
       <Footer />
+      <WhatsAppButton />
+      <ChatWidget />
     </StoreProvider>
   )
 }

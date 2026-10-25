@@ -1,22 +1,33 @@
-/* Payment provider seam. This is the one file that changes when a real
-   payment provider is connected. Right now no provider is connected, so
-   card payments stay disabled and the checkout says so honestly.
-   To connect a provider later: set provider to 'paystack' or
-   'flutterwave', paste the provider dashboard public key below, and set
-   cardPaymentsEnabled to true. Never put a secret key in this file. */
+/* Payment provider seam. This is the one file that changes when payment
+   settings change. The provider is Flutterwave. Card, bank transfer, and
+   USSD through Flutterwave Checkout activate only when a public key is
+   set below and cardPaymentsEnabled is true. Until then, the Flutterwave
+   option renders disabled with an honest note, and bank transfer plus
+   pay on delivery work as before. Never put a secret key in this file
+   or in any front end code. Public key only, pasted from the
+   Flutterwave dashboard. */
 
 export const paymentConfig = {
-  provider: null,
+  provider: 'flutterwave',
   publicKey: null,
   cardPaymentsEnabled: false,
 }
 
+/* Flutterwave Checkout is ready only when the provider is Flutterwave,
+   a public key is set, and card payments are enabled. */
+export const flutterwaveReady =
+  paymentConfig.provider === 'flutterwave' &&
+  paymentConfig.cardPaymentsEnabled &&
+  Boolean(paymentConfig.publicKey)
+
 export const paymentMethods = [
   {
-    id: 'card',
-    label: 'Card payment',
-    enabled: false,
-    note: 'Card payments activate once a payment provider is connected.',
+    id: 'flutterwave',
+    label: 'Pay with Flutterwave',
+    enabled: flutterwaveReady,
+    note: flutterwaveReady
+      ? 'Pay by card, bank transfer, or USSD through Flutterwave Checkout.'
+      : 'Add your Flutterwave public key in src/config/payments.js to activate.',
   },
   {
     id: 'transfer',

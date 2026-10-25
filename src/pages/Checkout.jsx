@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { site } from '../config/site.js'
-import { paymentMethods, paymentConfig } from '../config/payments.js'
+import { paymentMethods, paymentConfig, flutterwaveReady } from '../config/payments.js'
+import { loadFlutterwaveScript, openFlutterwaveCheckout } from '../lib/flutterwave.js'
 import { useStore } from '../store/StoreContext.jsx'
 import {
   formatNaira,
@@ -57,6 +58,38 @@ export default function Checkout() {
     return next
   }
 
+  function buildOrder() {
+    return {
+      orderNumber: generateOrderNumber(),
+      placedAt: new Date().toISOString(),
+      status: 'Processing',
+      paymentStatus: 'pending',
+      contact: {
+        fullName: form.fullName.trim(),
+        phone: form.phone.trim(),
+        email: form.email.trim(),
+      },
+      shipping: {
+        street: form.street.trim(),
+        city: form.city.trim(),
+        state: form.state,
+        postal: form.postal.trim(),
+      },
+      deliveryMethod: form.deliveryMethod,
+      deliveryFee,
+      paymentMethod: form.paymentMethod,
+      items: cartItems.map((item) => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        qty: item.qty,
+        lineTotal: item.lineTotal,
+      })),
+      subtotal,
+      total,
+    }
+  }
+
   function handleSubmit(event) {
     event.preventDefault()
     setSubmitError('')
@@ -68,39 +101,49 @@ export default function Checkout() {
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length > 0) return
 
+    /* Flutterwave path: the order is recorded only after Flutterwave
+       reports a successful payment. Closing the modal without paying
+       places no order. */
+    if (form.paymentMethod === 'flutterwave') {
+      if (!flutterwaveReady) {
+        setSubmitError('Flutterwave checkout is not active yet. Choose another payment method.')
+        return
+      }
+      setPlacing(true)
+      const order = buildOrder()
+      loadFlutterwaveScript()
+        .then(() => {
+          openFlutterwaveCheckout({
+            publicKey: paymentConfig.publicKey,
+            txRef: order.orderNumber,
+            amount: order.total,
+            customer: order.contact,
+            onSuccess: (data) => {
+              order.paymentStatus = 'paid'
+              order.flutterwaveTransactionId = data.transaction_id || null
+              placeOrder(order)
+              clearCart()
+              navigate('/success/' + order.orderNumber)
+            },
+            onClosed: () => {
+              setPlacing(false)
+              setSubmitError('Checkout was closed before payment finished, so no order was placed.')
+            },
+          })
+        })
+        .catch(() => {
+          setPlacing(false)
+          setSubmitError('Flutterwave checkout could not be loaded. Check your connection and try again, or choose another payment method.')
+        })
+      return
+    }
+
     setPlacing(true)
     /* Simulated processing delay. The button shows progress while the
        order is being recorded, and is disabled so it cannot be pressed
        twice. */
     setTimeout(() => {
-      const order = {
-        orderNumber: generateOrderNumber(),
-        placedAt: new Date().toISOString(),
-        status: 'Processing',
-        contact: {
-          fullName: form.fullName.trim(),
-          phone: form.phone.trim(),
-          email: form.email.trim(),
-        },
-        shipping: {
-          street: form.street.trim(),
-          city: form.city.trim(),
-          state: form.state,
-          postal: form.postal.trim(),
-        },
-        deliveryMethod: form.deliveryMethod,
-        deliveryFee,
-        paymentMethod: form.paymentMethod,
-        items: cartItems.map((item) => ({
-          id: item.id,
-          name: item.name,
-          price: item.price,
-          qty: item.qty,
-          lineTotal: item.lineTotal,
-        })),
-        subtotal,
-        total,
-      }
+      const order = buildOrder()
       placeOrder(order)
       clearCart()
       navigate('/success/' + order.orderNumber)
@@ -304,10 +347,11 @@ export default function Checkout() {
                     )
                   })}
                 </div>
-                {!paymentConfig.cardPaymentsEnabled && (
+                {!flutterwaveReady && (
                   <p className="muted summary-note">
-                    Card payments are not available yet. They activate once a
-                    payment provider is connected. Bank transfer and pay on
+                    Flutterwave checkout (card, bank transfer, USSD)
+                    activates once the public key is added in
+                    src/config/payments.js. Bank transfer and pay on
                     delivery work today.
                   </p>
                 )}
@@ -352,7 +396,11 @@ export default function Checkout() {
                 disabled={placing}
               >
                 {placing && <span className="btn-spinner" aria-hidden="true" />}
-                {placing ? 'Placing your order...' : 'Place order'}
+                {placing
+                  ? 'Processing...'
+                  : form.paymentMethod === 'flutterwave'
+                    ? 'Pay with Flutterwave'
+                    : 'Place order'}
               </button>
               <p className="summary-note">
                 By placing this order you confirm that your contact details
