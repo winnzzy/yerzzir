@@ -1,10 +1,10 @@
 import { site } from '../config/site.js'
 
 /* Yerzzir Store logo. The mark is an inline SVG so it works in the
-   single file preview with no image request. Rounded square in the
-   accent color from the design tokens, with a bold white letter Y
-   drawn with strokes and round caps and joins. The wordmark is styled
-   text, not baked into the SVG, so it stays sharp at any size. */
+   single file preview with no image request. A shopping bag in the
+   accent color with a white play button on it, on a yellow tile: video
+   commerce in one glance. The wordmark is styled text, not baked into
+   the SVG, so it stays sharp at any size. */
 
 export default function Logo() {
   return (
@@ -21,15 +21,32 @@ export default function Logo() {
           width="44"
           height="44"
           rx="10"
+          style={{ fill: 'var(--color-logo-yellow)' }}
+        />
+        <rect
+          x="12"
+          y="19"
+          width="24"
+          height="23"
+          rx="5"
           style={{ fill: 'var(--color-accent)' }}
         />
         <path
-          d="M15 13 L24 26 L33 13 M24 26 L24 36"
+          d="M18 19 C18 11.5 30 11.5 30 19"
           fill="none"
-          strokeWidth="5"
+          strokeWidth="3.5"
           strokeLinecap="round"
+          style={{ stroke: 'var(--color-accent)' }}
+        />
+        <polygon
+          points="21,26 21,35 30.5,30.5"
+          strokeWidth="1.5"
           strokeLinejoin="round"
-          style={{ stroke: 'var(--color-surface)' }}
+          style={{ fill: 'var(--color-surface)', stroke: 'var(--color-surface)' }}
+        />
+        <path
+          d="M36 34 Q36 41 29 41 L36 41 Z"
+          style={{ fill: 'var(--color-logo-yellow)' }}
         />
       </svg>
       <span className="logo-wordmark">{site.brandName}</span>

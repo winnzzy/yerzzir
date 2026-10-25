@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="240" height="240" role="img" aria-label="Yerzzir Store logo">
-  <rect x="2" y="2" width="44" height="44" rx="10" fill="#0f766e"/>
-  <path d="M15 13 L24 26 L33 13 M24 26 L24 36" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="2" y="2" width="44" height="44" rx="10" fill="#facc15"/>
+  <rect x="12" y="19" width="24" height="23" rx="5" fill="#0f766e"/>
+  <path d="M18 19 C18 11.5 30 11.5 30 19" fill="none" stroke="#0f766e" stroke-width="3.5" stroke-linecap="round"/>
+  <polygon points="21,26 21,35 30.5,30.5" fill="#ffffff" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M36 34 Q36 41 29 41 L36 41 Z" fill="#facc15"/>
 </svg>
