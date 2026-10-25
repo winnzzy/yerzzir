@@ -9,8 +9,8 @@
 
 export const paymentConfig = {
   provider: 'flutterwave',
-  publicKey: null,
-  cardPaymentsEnabled: false,
+  publicKey: 'FLWPUBK-78f560d3ccec4039297b22dd22498f43-X',
+  cardPaymentsEnabled: true,
 }
 
 /* Flutterwave Checkout is ready only when the provider is Flutterwave,
