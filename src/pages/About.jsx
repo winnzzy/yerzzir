@@ -12,8 +12,8 @@ export default function About() {
         </p>
         <p>
           Customers browse the catalog on this site, place an order with a
-          delivery address, and pay by bank transfer or on delivery. Card
-          payments will be added once a payment provider is connected.
+          delivery address, and pay securely through Flutterwave at
+          checkout, by card, bank transfer, or USSD.
         </p>
         <p>
           Orders are delivered across all 36 states and the Federal Capital

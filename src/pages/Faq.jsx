@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     question: 'What payment methods do you accept?',
-    answer: 'Bank transfer and pay on delivery work today. Card payments are not available yet. They activate once a payment provider is connected. For bank transfer, use your order number as the transfer reference. Your order is confirmed once payment is received.',
+    answer: 'All payments go through Flutterwave at checkout: card, bank transfer, or USSD. Your order is confirmed once Flutterwave reports a successful payment, and Flutterwave emails you a payment receipt.',
   },
   {
     question: 'How do I track my order?',

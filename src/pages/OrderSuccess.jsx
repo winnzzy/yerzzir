@@ -85,20 +85,7 @@ export default function OrderSuccess({ params }) {
                   after a successful payment.
                 </>
               )}
-              {order.paymentMethod === 'transfer' && (
-                <>
-                  <br />
-                  Use your order number as the transfer reference. Your order
-                  is confirmed once payment is received. Transfer details are
-                  shared with you after you place your order.
-                </>
-              )}
-              {order.paymentMethod === 'pod' && (
-                <>
-                  <br />
-                  Pay the courier in full when your order arrives.
-                </>
-              )}
+
             </p>
           </div>
           <aside className="summary-box">

@@ -21,7 +21,7 @@ const emptyForm = {
   state: '',
   postal: '',
   deliveryMethod: 'standard',
-  paymentMethod: 'pod',
+  paymentMethod: 'flutterwave',
 }
 
 export default function Checkout() {
@@ -106,7 +106,7 @@ export default function Checkout() {
        places no order. */
     if (form.paymentMethod === 'flutterwave') {
       if (!flutterwaveReady) {
-        setSubmitError('Flutterwave checkout is not active yet. Choose another payment method.')
+        setSubmitError('Flutterwave checkout is not active yet. The store owner needs to add the public key.')
         return
       }
       setPlacing(true)
@@ -133,21 +133,16 @@ export default function Checkout() {
         })
         .catch(() => {
           setPlacing(false)
-          setSubmitError('Flutterwave checkout could not be loaded. Check your connection and try again, or choose another payment method.')
+          setSubmitError('Flutterwave checkout could not be loaded. Check your connection and try again.')
         })
       return
     }
 
-    setPlacing(true)
-    /* Simulated processing delay. The button shows progress while the
-       order is being recorded, and is disabled so it cannot be pressed
-       twice. */
-    setTimeout(() => {
-      const order = buildOrder()
-      placeOrder(order)
-      clearCart()
-      navigate('/success/' + order.orderNumber)
-    }, 1200)
+    /* No other payment method exists. Every payment goes through
+       Flutterwave, so reaching here means the selected method is
+       invalid and no order is placed. */
+    setPlacing(false)
+    setSubmitError('All payments go through Flutterwave. Select Flutterwave checkout to continue.')
   }
 
   if (cartItems.length === 0) {
@@ -351,8 +346,7 @@ export default function Checkout() {
                   <p className="muted summary-note">
                     Flutterwave checkout (card, bank transfer, USSD)
                     activates once the public key is added in
-                    src/config/payments.js. Bank transfer and pay on
-                    delivery work today.
+                    src/config/payments.js.
                   </p>
                 )}
               </div>
@@ -396,11 +390,7 @@ export default function Checkout() {
                 disabled={placing}
               >
                 {placing && <span className="btn-spinner" aria-hidden="true" />}
-                {placing
-                  ? 'Processing...'
-                  : form.paymentMethod === 'flutterwave'
-                    ? 'Pay with Flutterwave'
-                    : 'Place order'}
+                {placing ? 'Processing...' : 'Pay with Flutterwave'}
               </button>
               <p className="summary-note">
                 By placing this order you confirm that your contact details

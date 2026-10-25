@@ -9,13 +9,13 @@ Placeholders:
 
 - {{store_name}}: Yerzzir Store
 - {{customer_name}}: full name from checkout
-- {{order_number}}: order number, used as the transfer reference
+- {{order_number}}: order number, used as the Flutterwave transaction reference
 - {{items}}: one line per item, name, quantity, line total
 - {{subtotal}}: items total in Naira
 - {{delivery_fee}}: delivery fee in Naira, or Free
-- {{total}}: total paid or due in Naira
+- {{total}}: total paid in Naira
 - {{delivery_address}}: street, city, state, postal code if given
-- {{payment_method}}: Flutterwave, bank transfer, or pay on delivery
+- {{payment_method}}: Flutterwave
 - {{delivery_estimate}}: estimated delivery window in working days
 - {{track_url}}: link to the track order page
 
@@ -45,8 +45,8 @@ Estimated delivery: {{delivery_estimate}}
 Track your order here: {{track_url}}
 You need your order number and phone number to track it.
 
-If you paid by bank transfer, use your order number as the transfer
-reference. Your order is confirmed once payment is received.
+Your payment was processed through Flutterwave, which emails you a
+payment receipt after a successful payment.
 
 Thank you for shopping with {{store_name}}.
 
@@ -74,9 +74,8 @@ Thank you for shopping with {{store_name}}.
     <p>Estimated delivery: {{delivery_estimate}}</p>
     <p><a href="{{track_url}}">Track your order</a></p>
     <p>You need your order number and phone number to track it.</p>
-    <p>If you paid by bank transfer, use your order number as the
-    transfer reference. Your order is confirmed once payment is
-    received.</p>
+    <p>Your payment was processed through Flutterwave, which emails you a
+    payment receipt after a successful payment.</p>
     <p>Thank you for shopping with {{store_name}}.</p>
   </body>
 </html>

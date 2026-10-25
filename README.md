@@ -1,8 +1,8 @@
 # Yerzzir Store
 
 A Nigeria-based online store that sells tech gadgets sourced from China.
-Customers browse products, add items to a cart, check out, pay by bank
-transfer or on delivery, and track orders by order number and phone
+Customers browse products, add items to a cart, check out, pay
+through Flutterwave, and track orders by order number and phone
 number. Prices are in Nigerian Naira. Orders and cart contents are
 stored in the browser (localStorage), so no server or database is
 needed to run the store.
@@ -70,17 +70,16 @@ Change the numbers in `site.js` to change the rule everywhere.
 
 ## Connect Flutterwave
 
-The payment provider is Flutterwave. The payment seam is one file:
-`src/config/payments.js`. Right now the public key is empty, so the
-Flutterwave option renders disabled with an honest note, and bank
-transfer plus pay on delivery work as before.
+The payment provider is Flutterwave, and it is the only payment method
+on this store. The payment seam is one file: `src/config/payments.js`.
+The public key is set and card payments are enabled, so Flutterwave
+Checkout is active.
 
-To activate Flutterwave Checkout:
+To change the key:
 
-1. Open a merchant account with Flutterwave and copy the public key
-   from the Flutterwave dashboard.
+1. Copy the public key from the Flutterwave dashboard.
 2. In `src/config/payments.js`, paste the public key into `publicKey`.
-3. Set `cardPaymentsEnabled` to `true`.
+3. Keep `cardPaymentsEnabled` set to `true`.
 
 That is all the storefront needs. When active, checkout loads the
 Flutterwave script and opens the modal with the order number as
@@ -94,10 +93,7 @@ paying places no order.
 Never put a secret key in this file or in any front end code. Public
 key only. Server side webhook verification is described in
 docs/backend-spec.md and must be in place before real payments are
-taken. Bank transfer instructions tell the customer to use the order
-number as the reference. No bank account details are stored in this
-project. Add the real account details to the transfer instructions
-only when they are confirmed.
+taken. No bank account details are stored in this project.
 
 ## Contact details
 

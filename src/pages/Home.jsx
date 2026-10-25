@@ -14,7 +14,7 @@ const steps = [
   },
   {
     title: 'Pay your way',
-    text: 'Pay by bank transfer or pay the courier on delivery. Card payments arrive once a provider is connected.',
+    text: 'Pay securely through Flutterwave at checkout, by card, bank transfer, or USSD.',
   },
   {
     title: 'Receive delivery',

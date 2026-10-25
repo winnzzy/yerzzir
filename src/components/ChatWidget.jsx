@@ -30,10 +30,9 @@ const quickAnswers = [
     chip: 'Payment methods',
     match: ['payment', 'pay', 'card', 'transfer', 'ussd', 'flutterwave'],
     answer:
-      'You can pay by bank transfer using your order number as the ' +
-      'reference, or pay on delivery. Card, bank transfer, and USSD ' +
-      'through Flutterwave will be available once the store connects ' +
-      'its payment key.',
+      'All payments go through Flutterwave at checkout. You can pay ' +
+      'by card, bank transfer, or USSD, and your order number is the ' +
+      'payment reference.',
   },
   {
     chip: 'Track my order',

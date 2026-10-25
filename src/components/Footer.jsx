@@ -11,8 +11,8 @@ export default function Footer() {
             <p className="footer-brand"><Logo /></p>
             <p className="footer-note">
               {site.tagline} Orders are placed on this site, paid securely
-              at checkout, by bank transfer, or on delivery, and shipped to
-              addresses across Nigeria.
+              through Flutterwave at checkout, and shipped to addresses
+              across Nigeria.
             </p>
             <p className="footer-note">Contact details coming soon.</p>
           </div>
