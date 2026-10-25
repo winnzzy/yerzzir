@@ -51,7 +51,7 @@ export default function ProductDetail({ params }) {
             <img src={product.image} alt={product.name} />
           </div>
           <div className="detail-info">
-            <span className="product-card-category">{product.category}</span>
+            <span className={'product-card-category cat-' + product.category.toLowerCase()}>{product.category}</span>
             <h1 className="page-title" style={{ marginBottom: 0 }}>{product.name}</h1>
             <span
               className={
@@ -86,16 +86,18 @@ export default function ProductDetail({ params }) {
               </button>
             </div>
             <h2 className="detail-specs-title">Specifications</h2>
-            <table className="spec-table">
-              <tbody>
-                {product.specs.map((spec) => (
-                  <tr key={spec.label}>
-                    <td>{spec.label}</td>
-                    <td>{spec.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="spec-scroll">
+              <table className="spec-table">
+                <tbody>
+                  {product.specs.map((spec) => (
+                    <tr key={spec.label}>
+                      <td>{spec.label}</td>
+                      <td>{spec.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>

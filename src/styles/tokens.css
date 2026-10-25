@@ -1,10 +1,15 @@
 /* Design tokens. Every color, spacing, radius, type, shadow, and motion
    value used anywhere on this site comes from this file. Do not add
    one-off values in component styles. Breakpoints are documented here
-   and used consistently: 640px for phones, 900px for tablets. */
+   and used consistently: 640px for phones, 900px for small tablets,
+   1024px for tablets. */
 
 :root {
-  /* Color. Solid colors only. One accent color. Dark ink neutrals. */
+  /* Color. Solid colors only, no gradients anywhere. Deep teal is the
+     primary brand color, logo yellow is the hero color, coral is the
+     fun accent, cream is the page background, dark ink neutrals hold
+     the text. Text on yellow and cream is dark ink; text on teal and
+     coral is white. */
   --color-ink: #17191d;
   --color-ink-soft: #3d434b;
   --color-muted: #6b7280;
@@ -12,16 +17,30 @@
   --color-border-strong: #c9ced6;
   --color-surface: #ffffff;
   --color-surface-alt: #f5f6f7;
+  --color-cream: #fdf6e9;
   --color-accent: #0f766e;
   --color-accent-hover: #0b5f58;
   --color-accent-soft: #e6f4f2;
   --color-logo-yellow: #facc15;
+  --color-logo-yellow-hover: #eab308;
+  --color-coral: #f2542d;
+  --color-coral-hover: #cf3f1d;
+  --color-coral-soft: #fdeee9;
   --color-success: #15803d;
   --color-success-soft: #eaf5ec;
   --color-warning: #92400e;
   --color-warning-soft: #fdf3e3;
   --color-danger: #b91c1c;
   --color-danger-soft: #fdecec;
+
+  /* Category colors. One solid color per real catalog category. Tiles
+     use the full color; small labels use the dark text variant where
+     the full color would be unreadable on white. */
+  --color-cat-audio: #0f766e;
+  --color-cat-power: #facc15;
+  --color-cat-power-dark: #854d0e;
+  --color-cat-wearables: #f2542d;
+  --color-cat-accessories: #0284c7;
 
   /* Type. System stack, so the site never waits on a web font. */
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -34,6 +53,7 @@
   --font-size-2xl: 24px;
   --font-size-3xl: 30px;
   --font-size-4xl: 36px;
+  --font-size-5xl: 48px;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -50,6 +70,7 @@
   --space-6: 24px;
   --space-8: 32px;
   --space-10: 40px;
+  --space-11: 44px;
   --space-12: 48px;
   --space-16: 64px;
 

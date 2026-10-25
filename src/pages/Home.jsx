@@ -22,6 +22,20 @@ const steps = [
   },
 ]
 
+/* Short true descriptions for each real catalog category, used on the
+   home page tiles. Each tile links to the shop filtered to that
+   category. */
+const categoryNotes = {
+  Audio: 'Earbuds and speakers',
+  Power: 'Power banks and chargers',
+  Wearables: 'Smartwatches and trackers',
+  Accessories: 'Cables, stands, lights, and mice',
+}
+
+function categorySlug(category) {
+  return category.toLowerCase()
+}
+
 export default function Home() {
   const featured = products.filter((p) => p.featured)
   const bestSellers = products.filter((p) => p.bestSeller)
@@ -30,7 +44,11 @@ export default function Home() {
     <>
       <section className="hero">
         <div className="container hero-inner">
-          <h1>Quality tech gadgets, delivered across Nigeria.</h1>
+          <p className="hero-sticker">Delivery across Nigeria</p>
+          <h1>
+            Quality tech gadgets,{' '}
+            <span className="hero-accent">delivered across Nigeria.</span>
+          </h1>
           <p>
             {site.brandName} sells earbuds, power banks, smartwatches,
             speakers, chargers, and accessories sourced from China, with
@@ -50,29 +68,38 @@ export default function Home() {
       </section>
 
       <div className="container">
-        <div className="category-strip" aria-label="Product categories">
-          {site.categories.map((category) => (
-            <a
-              key={category}
-              className="chip"
-              href={'#/shop?category=' + encodeURIComponent(category)}
-            >
-              {category}
-            </a>
-          ))}
-        </div>
+        <section className="section">
+          <h2 className="section-title section-title-lg">Shop by category</h2>
+          <p className="section-lead">
+            Pick a category to filter the shop.
+          </p>
+          <div className="category-tiles" aria-label="Product categories">
+            {site.categories.map((category) => (
+              <a
+                key={category}
+                className={'category-tile cat-' + categorySlug(category)}
+                href={'#/shop?category=' + encodeURIComponent(category)}
+              >
+                <span className="category-tile-name">{category}</span>
+                <span className="category-tile-note">{categoryNotes[category]}</span>
+              </a>
+            ))}
+          </div>
+        </section>
 
         <section className="section">
-          <h2 className="section-title">Featured products</h2>
+          <h2 className="section-title section-title-lg">Featured products</h2>
           <p className="section-lead">
             A rotating selection from the current catalog. Use the arrows or
             the dots to move through them.
           </p>
           <Carousel products={featured} />
         </section>
+      </div>
 
-        <section className="section" id="how-it-works">
-          <h2 className="section-title">How ordering works</h2>
+      <section className="band band-teal" id="how-it-works">
+        <div className="container">
+          <h2 className="section-title section-title-lg">How ordering works</h2>
           <p className="section-lead">
             Four steps, from finding a product to receiving it at your door.
           </p>
@@ -85,10 +112,12 @@ export default function Home() {
               </article>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
+      <div className="container">
         <section className="section">
-          <h2 className="section-title">Best sellers</h2>
+          <h2 className="section-title section-title-lg">Best sellers</h2>
           <p className="section-lead">
             The products customers order most often from the current catalog.
           </p>

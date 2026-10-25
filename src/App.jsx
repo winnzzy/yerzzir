@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { StoreProvider } from './store/StoreContext.jsx'
 import { parseHash, matchRoute } from './lib/router.js'
+import AnnouncementBar from './components/AnnouncementBar.jsx'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import WhatsAppButton from './components/WhatsAppButton.jsx'
@@ -65,6 +66,7 @@ export default function App() {
 
   return (
     <StoreProvider>
+      <AnnouncementBar />
       <Header currentPath={route.path} />
       <main>
         <Router route={route} />

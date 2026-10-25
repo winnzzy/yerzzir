@@ -30,7 +30,7 @@ export default function ProductCard({ product }) {
         <img src={product.image} alt={product.name} loading="lazy" />
       </a>
       <div className="product-card-body">
-        <span className="product-card-category">{product.category}</span>
+        <span className={'product-card-category cat-' + product.category.toLowerCase()}>{product.category}</span>
         <h3 className="product-card-name">
           <a href={'#/product/' + product.id}>{product.name}</a>
         </h3>

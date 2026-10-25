@@ -12,7 +12,7 @@ body {
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
   color: var(--color-ink);
-  background: var(--color-surface);
+  background: var(--color-cream);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -80,6 +80,23 @@ img {
   margin: 0 0 var(--space-2) 0;
 }
 
+/* Coral accent bar under every section title. Same size and place on
+   every page, so headers stay consistent while the site gets color. */
+.section-title::after {
+  content: "";
+  display: block;
+  width: var(--space-8);
+  height: var(--space-1);
+  background: var(--color-coral);
+  border-radius: var(--radius-sm);
+  margin-top: var(--space-2);
+}
+
+/* Larger display title for home page sections. */
+.section-title-lg {
+  font-size: var(--font-size-3xl);
+}
+
 .section-lead {
   font-size: var(--font-size-base);
   color: var(--color-muted);
@@ -111,6 +128,10 @@ img {
   }
 
   .page-title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .section-title-lg {
     font-size: var(--font-size-2xl);
   }
 }

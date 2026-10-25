@@ -27,6 +27,35 @@
   text-decoration: none;
 }
 
+/* Solid color button variants. Coral for playful accents, yellow for
+   actions on dark or teal surfaces. White text on coral, dark text on
+   yellow. */
+.btn-coral {
+  background: var(--color-coral);
+  color: var(--color-surface);
+}
+
+.btn-coral:hover:not(:disabled) {
+  background: var(--color-coral-hover);
+  text-decoration: none;
+}
+
+.btn-yellow {
+  background: var(--color-logo-yellow);
+  color: var(--color-ink);
+}
+
+.btn-yellow:hover:not(:disabled) {
+  background: var(--color-logo-yellow-hover);
+  text-decoration: none;
+}
+
+/* Press feedback on every button. A small shrink on press, never a
+   glow, and it releases the moment the press ends. */
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
 .btn-secondary {
   background: var(--color-surface);
   color: var(--color-ink);
@@ -135,6 +164,24 @@
   color: var(--color-muted);
 }
 
+/* Category labels pick up their category color. Power uses the dark
+   amber variant because full yellow text is unreadable on white. */
+.product-card-category.cat-audio {
+  color: var(--color-cat-audio);
+}
+
+.product-card-category.cat-power {
+  color: var(--color-cat-power-dark);
+}
+
+.product-card-category.cat-wearables {
+  color: var(--color-cat-wearables);
+}
+
+.product-card-category.cat-accessories {
+  color: var(--color-cat-accessories);
+}
+
 .product-card-name {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
@@ -150,6 +197,7 @@
 .product-card-price {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
   margin-top: auto;
 }
 
@@ -283,6 +331,9 @@
 
 /* Filter chips. */
 .chip {
+  min-height: var(--space-11);
+  display: inline-flex;
+  align-items: center;
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border-strong);
@@ -535,8 +586,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: var(--space-10);
-  height: var(--space-10);
+  width: var(--space-11);
+  height: var(--space-11);
   border-radius: 50%;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
@@ -682,6 +733,99 @@
 
   .steps-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Card buttons stack full width on narrow cards so they never
+     crush side by side. */
+  .product-card-actions {
+    flex-direction: column;
+  }
+
+  .product-card-actions .btn {
+    width: 100%;
+  }
+
+  .product-card-body {
+    padding: var(--space-3);
+  }
+
+  /* Floating buttons pull in from the edges on phones so they never
+     cover checkout buttons or each other. */
+  .whatsapp-button {
+    left: var(--space-3);
+    bottom: var(--space-3);
+  }
+
+  .chat-toggle {
+    right: var(--space-3);
+    bottom: var(--space-3);
+  }
+
+  .chat-panel {
+    right: var(--space-3);
+    bottom: calc(var(--space-12) + var(--space-4));
+  }
+}
+
+/* Announcement strip. Solid yellow, dark text, true store facts only.
+   The track scrolls slowly and pauses on hover. */
+.announcement-bar {
+  background: var(--color-logo-yellow);
+  color: var(--color-ink);
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.announcement-track {
+  display: flex;
+  width: max-content;
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-2);
+  animation: marquee-scroll 30000ms linear infinite;
+}
+
+.announcement-bar:hover .announcement-track {
+  animation-play-state: paused;
+}
+
+/* Each group carries its own trailing padding so the two identical
+   halves are exactly equal and the scroll loops without a jump. */
+.announcement-group {
+  display: flex;
+  gap: var(--space-8);
+  padding-right: var(--space-8);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Reduced motion. All decorative and entrance motion stops, including
+   the announcement scroll and the grid stagger. Loading spinners and
+   skeleton placeholders stay visible but static. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .announcement-track,
+  .step-card,
+  .product-grid .product-card,
+  .skeleton,
+  .btn-spinner {
+    animation: none;
+  }
+
+  .carousel-track {
+    transition: none;
   }
 }
 

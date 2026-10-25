@@ -1,7 +1,8 @@
-/* Hero. Solid surface color. No gradients, no decoration. */
+/* Hero. Solid logo yellow, dark ink text, no gradients. The sticker
+   badge is a white pill tilted slightly, like a shop sticker. */
 .hero {
-  background: var(--color-surface-alt);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--color-logo-yellow);
+  border-bottom: 1px solid var(--color-border-strong);
 }
 
 .hero-inner {
@@ -10,11 +11,29 @@
   max-width: 720px;
 }
 
+.hero-sticker {
+  display: inline-block;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transform: rotate(-2deg);
+  margin: 0 0 var(--space-4) 0;
+}
+
 .hero h1 {
-  font-size: var(--font-size-4xl);
+  font-size: var(--font-size-5xl);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   margin: 0 0 var(--space-4) 0;
+}
+
+/* Teal accent word inside the yellow hero heading. */
+.hero-accent {
+  color: var(--color-accent);
 }
 
 .hero p {
@@ -29,7 +48,7 @@
   flex-wrap: wrap;
 }
 
-/* Category strip. */
+/* Category strip. Kept for pages that list categories as chips. */
 .category-strip {
   display: flex;
   gap: var(--space-3);
@@ -39,11 +58,109 @@
   border-bottom: 1px solid var(--color-border);
 }
 
-/* Product grids. Card placement is identical on every page. */
+/* Color coded shop by category tiles. One solid color per real
+   category, dark text on yellow, white text on the rest. Each tile is
+   a link that filters the shop to that category. */
+.category-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.category-tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-height: var(--space-12);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  color: var(--color-surface);
+  transition: transform var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.category-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+}
+
+.category-tile.cat-audio {
+  background: var(--color-cat-audio);
+}
+
+.category-tile.cat-power {
+  background: var(--color-cat-power);
+  color: var(--color-ink);
+}
+
+.category-tile.cat-wearables {
+  background: var(--color-cat-wearables);
+}
+
+.category-tile.cat-accessories {
+  background: var(--color-cat-accessories);
+}
+
+.category-tile-name {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.category-tile-note {
+  font-size: var(--font-size-sm);
+  opacity: 0.9;
+}
+
+/* Colored section bands. Full width color, white text, white cards
+   inside. The teal band holds the how it works steps. */
+.band {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
+}
+
+.band-teal {
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
+.band-teal .section-title {
+  color: var(--color-surface);
+}
+
+.band-teal .section-lead {
+  color: var(--color-surface);
+  opacity: 0.9;
+}
+
+/* Product grids. Card placement is identical on every page. Cards
+   rise in with a short intentional stagger on load. The animation
+   uses backwards fill so the hover lift still works after it ends. */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-6);
+}
+
+.product-grid .product-card {
+  animation: rise-in var(--duration-slow) var(--ease-out) backwards;
+}
+
+.product-grid .product-card:nth-child(4n + 1) {
+  animation-delay: 0ms;
+}
+
+.product-grid .product-card:nth-child(4n + 2) {
+  animation-delay: 60ms;
+}
+
+.product-grid .product-card:nth-child(4n + 3) {
+  animation-delay: 120ms;
+}
+
+.product-grid .product-card:nth-child(4n + 4) {
+  animation-delay: 180ms;
 }
 
 /* Shop toolbar. */
@@ -152,6 +269,17 @@
 .detail-price {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+}
+
+/* Spec tables scroll inside their wrapper on narrow screens instead
+   of overflowing the page. */
+.spec-scroll {
+  overflow-x: auto;
+}
+
+.spec-scroll .spec-table {
+  min-width: 280px;
 }
 
 .detail-buy-row {
@@ -366,6 +494,24 @@
   gap: var(--space-4);
 }
 
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .category-tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero h1 {
+    font-size: var(--font-size-4xl);
+  }
+}
+
 @media (max-width: 900px) {
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -406,5 +552,55 @@
   .product-grid {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-4);
+  }
+
+  /* Single column steps on phones, overriding the tablet rule above. */
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-tiles {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .category-tile {
+    padding: var(--space-4);
+  }
+
+  .category-tile-name {
+    font-size: var(--font-size-base);
+  }
+
+  .hero h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .hero-inner {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+
+  .band {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+
+  /* Shop sort takes the full row on phones so it stays tappable. */
+  .shop-sort {
+    width: 100%;
+  }
+
+  .shop-sort select {
+    width: 100%;
+  }
+
+  /* Summary totals wrap instead of pushing the page sideways. */
+  .summary-table td:last-child {
+    white-space: normal;
+  }
+
+  .summary-box {
+    padding: var(--space-4);
   }
 }
